@@ -33,7 +33,6 @@ createChessboard w h =
 
 chessboard = createChessboard width height
 
-
 isMovementValid :: [Int] -> [[Int]] -> Int -> Int -> Bool
 isMovementValid proxMov cBoard w h = 
     let isInBoard = ((proxMov !! 0) >= 0) && ((proxMov !! 1) >= 0) && ((proxMov !! 0) <= (h - 1)) && ((proxMov !! 1) <= (w - 1))
@@ -50,13 +49,13 @@ isStartReachable cPos sPos possMov =
 
 
 knightsTourProblem :: [[Int]] -> [Int] -> [Int] -> Int -> [Int] Bool
-knightsTourProblem :: cBoard cPos sPos sCounter posMov =
+knightsTourProblem cBoard cPos sPos sCounter posMov =
     let 
         rowIndex = cPos !! 0
         colIndex = cPos !! 1
     in
         chBoard :: [[Int]]
-        chBoard = updateBoard cBoard rowIndex colIndex sCounter
+       -- chBoard = updateBoard cBoard rowIndex colIndex sCounter
 
         if (sCounter == (length (chBoard !! 0) * length chBoard))
             then if (isStartReachable cPos sPos possibleMovements)
