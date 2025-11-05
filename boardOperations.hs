@@ -13,8 +13,8 @@ replace index value list =
         in beg ++ [value] ++ (tail end)
 
 
-updateBoard [[a]] -> Int -> Int -> a -> [[a]]
-updateBoard :: board lineIndex colIndex value = 
+updateBoard :: [[a]] -> Int -> Int -> a -> [[a]]
+updateBoard board lineIndex colIndex value = 
     let (matrixBeg, matrixEnd)  = splitAt lineIndex board 
         currentLine = head matrixEnd
         updatedLine = replace colIndex value currentLine
