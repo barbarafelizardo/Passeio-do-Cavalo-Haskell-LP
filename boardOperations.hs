@@ -5,13 +5,17 @@
 module BoardOperations (..) where
 
 replace :: Int -> a -> [a] -> [a]  --qualquer letra minuscula serve como placeholder de uma variável de tipo genérico
-replace :: index value list = 
+replace index value list = 
     if index == 0
         then value : tail list
     else
         let (beg, end) = splitAt index list
-        in lista_alterada = beg ++ [value] ++ (tail end)
+        in beg ++ [value] ++ (tail end)
 
 
-updateBoard :: [[a]] -> Int -> Int -> a -> [[a]]
--- tabuleiro -- indice da linha -- indice da coluna -- valor p mudar
+updateBoard [[a]] -> Int -> Int -> a -> [[a]]
+updateBoard :: board lineIndex colIndex value = 
+    let (matrixBeg, matrixEnd)  = splitAt lineIndex board 
+        currentLine = head matrixEnd
+        updatedLine = replace colIndex value currentLine
+    in matrixBeg ++ [updatedLine] ++ (tail matrixEnd)
