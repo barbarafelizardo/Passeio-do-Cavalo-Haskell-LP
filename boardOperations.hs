@@ -2,7 +2,7 @@
 -- sempre que quisermos atualizar o valor na matriz, temos que criar uma nova 
 -- aqui vamos fazer as funções de lidar com o tabuleiro/matriz
 
-module BoardOperations (..) where
+module BoardOperations (replace, updateBoard) where
 
 replace :: Int -> a -> [a] -> [a]  --qualquer letra minuscula serve como placeholder de uma variável de tipo genérico
 replace index value list = 
