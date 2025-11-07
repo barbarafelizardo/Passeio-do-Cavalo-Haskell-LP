@@ -1,13 +1,21 @@
+Linguagens de Programação - 2025.1
+Trabalho de Implementação em Haskell - Passeio do Cavalo
+Alunos: Bárbara Felizardo e Caio Marcus
+
 Bárbara Felizardo:
-    - isMovementValid
-    - isStartReachable
-    - knightsTourProblem
-    - replace
-    - updateBoard
-    - createChessboard
+    - KnightsTour
+        - isMovementValid
+        - isStartReachable
+        - knightsTourProblem
+    - BoardOperations
+        - replace
+        - updateBoard
+        - createChessboard
 
 Caio Marcus:
-    - BoardInput
-    - readInputFile
-    - parseLine
-    - readIntMaybe
+    - FileReader
+        - BoardInput
+        - readInputFile
+        - parseLine
+        - readIntMaybe
+    - main

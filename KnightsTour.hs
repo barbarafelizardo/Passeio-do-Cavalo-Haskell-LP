@@ -1,6 +1,6 @@
+module KnightsTour(isMovementValid, isStartReachable, knightsTourProblem) where
 import BoardOperations
 
-module KnightsTour(isMovementValid, isStartReachable, knightsTourProblem) where
 
 -- vê se o movimento está nos limites do tabuleiro e se o valor da célula dele na matriz é 0
 isMovementValid :: [Int] -> [[Int]] -> Int -> Int -> Bool
@@ -13,7 +13,6 @@ isStartReachable :: [Int] -> [Int] -> [[Int]] -> Bool
 isStartReachable cPos sPos posMov =
     let nextMovements = map (\move -> [head cPos + head move, cPos !! 1 + move !! 1]) posMov
     in any (\move -> move == sPos) nextMovements
-
 
 -- vê se o passo que ele dá é o último, se for, vê se dá para chegar na casa que ele saiu, 
 -- se não for o último, pega uma lista de movimentos válidos e tenta rodar como se cada um fosse o próximo
