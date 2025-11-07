@@ -1,3 +1,5 @@
+import BoardOperations
+
 module KnightsTour(isMovementValid, isStartReachable, knightsTourProblem) where
 
 -- vê se o movimento está nos limites do tabuleiro e se o valor da célula dele na matriz é 0
@@ -31,4 +33,4 @@ knightsTourProblem cBoard cPos sPos sCounter posMov =
                 nextMovements = map (\move -> [head cPos + head move, cPos !! 1 + move !! 1]) posMov
                 validNextPositions = filter (\pos -> isMovementValid pos chBoard w h) nextMovements
                 tryThisWay nextPos = knightsTourProblem chBoard nextPos sPos (sCounter + 1) posMov
-            in any tryOneMove validNextPositions
+            in any tryThisWay validNextPositions
