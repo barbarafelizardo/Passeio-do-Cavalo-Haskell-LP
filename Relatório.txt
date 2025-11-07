@@ -1,0 +1,13 @@
+Bárbara Felizardo:
+    - isMovementValid
+    - isStartReachable
+    - knightsTourProblem
+    - replace
+    - updateBoard
+    - createChessboard
+
+Caio Marcus:
+    - BoardInput
+    - readInputFile
+    - parseLine
+    - readIntMaybe
