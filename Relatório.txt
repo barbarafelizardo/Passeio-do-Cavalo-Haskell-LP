@@ -19,3 +19,5 @@ Caio Marcus:
         - parseLine
         - readIntMaybe
     - main
+        - main
+        - processInput
