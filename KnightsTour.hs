@@ -26,7 +26,7 @@ knightsTourProblem cBoard cPos sPos sCounter posMov =
         chBoard = updateBoard cBoard rowIndex colIndex sCounter
     in
         if (sCounter == (w * h))
-            then (isStartReachable cPos sPos posMov)
+            then not (isStartReachable cPos sPos posMov)
         else
             let
                 nextMovements = map (\move -> [head cPos + head move, cPos !! 1 + move !! 1]) posMov
