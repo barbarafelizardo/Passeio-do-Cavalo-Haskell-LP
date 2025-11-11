@@ -15,6 +15,18 @@ isStartReachable cPos sPos posMov =
     let nextMovements = map (\move -> [head cPos + head move, cPos !! 1 + move !! 1]) posMov
     in any (\move -> move == sPos) nextMovements
 
+-- gera próximos movimentos a partir de uma posição
+nextFrom :: [Int] -> [[Int]] -> [[Int]]
+nextFrom [r,c] posMov = 
+    map (\m -> [r + head m, c + (m !! 1)]) posMov
+nextFrom _ _ = []
+
+-- grau de Warnsdorff: quantos movimentos válidos existem a partir dessa posição
+onwardDegree :: [Int] -> Int -> Int -> [[Int]] -> [[Int]] -> Int
+onwardDegree pos w h chBoard posMov =
+    let ns = nextFrom pos posMov
+    in length (filter (\p -> isMovementValid p chBoard w h) ns)
+
 -- vê se o passo que ele dá é o último, se for, vê se dá para chegar na casa que ele saiu, 
 -- se não for o último, pega uma lista de movimentos válidos e tenta rodar como se cada um fosse o próximo
 knightsTourProblem :: [[Int]] -> [Int] -> [Int] -> Int -> [[Int]] -> Bool
@@ -26,29 +38,17 @@ knightsTourProblem cBoard cPos sPos sCounter posMov =
         chBoard = updateBoard cBoard rowIndex colIndex sCounter
         w = length (head chBoard)
         h = length chBoard
-
-        -- gera próximos movimentos a partir de uma posição
-        nextFrom :: [Int] -> [[Int]]
-        nextFrom [r,c] = 
-            map (\m -> [r + head m, c + (m !! 1)]) posMov
-        nextFrom _ = []
-
-        -- grau de Warnsdorff: quantos movimentos válidos existem a partir dessa posição
-        onwardDegree :: [Int] -> Int
-        onwardDegree pos =
-            let ns = nextFrom pos
-            in length (filter (\p -> isMovementValid p chBoard w h) ns)
     in
         if sCounter == (w * h)
             then not (isStartReachable cPos sPos posMov)
         else
             let
-                nextMovements = nextFrom cPos
+                nextMovements = nextFrom cPos posMov
                 validNextPositions = filter (\pos -> isMovementValid pos chBoard w h) nextMovements
 
                 -- ordena pelos que têm MENOS saídas depois (Warnsdorff)
                 orderedNextPositions =
-                    sortOn onwardDegree validNextPositions
+                    sortOn (\pos -> onwardDegree pos w h chBoard posMov) validNextPositions
 
                 tryThisWay nextPos =
                     knightsTourProblem chBoard nextPos sPos (sCounter + 1) posMov
