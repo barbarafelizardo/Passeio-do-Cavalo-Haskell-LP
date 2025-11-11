@@ -21,3 +21,6 @@ Caio Marcus:
     - main
         - main
         - processInput
+    - KnightsTour
+        - nextFrom
+        - onwardDegree

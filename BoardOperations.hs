@@ -21,7 +21,7 @@ replace index value list =
 -- cria um novo tabuleiro mudando só a célula que a gente queria
 updateBoard :: [[a]] -> Int -> Int -> a -> [[a]]
 updateBoard board lineIndex colIndex value = 
-    let (matrixBeg, matrixEnd)  = splitAt lineIndex board 
+    let (matrixBeg, matrixEnd) = splitAt lineIndex board 
         currentLine = head matrixEnd
         updatedLine = replace colIndex value currentLine
     in matrixBeg ++ [updatedLine] ++ tail matrixEnd

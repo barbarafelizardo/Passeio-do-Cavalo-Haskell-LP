@@ -1,5 +1,6 @@
 module KnightsTour(isMovementValid, isStartReachable, knightsTourProblem) where
 import BoardOperations
+import Data.List (sortOn)
 
 
 -- vê se o movimento está nos limites do tabuleiro e se o valor da célula dele na matriz é 0
@@ -21,15 +22,35 @@ knightsTourProblem cBoard cPos sPos sCounter posMov =
     let
         rowIndex = head cPos
         colIndex = cPos !! 1
+
+        chBoard = updateBoard cBoard rowIndex colIndex sCounter
         w = length (head chBoard)
         h = length chBoard
-        chBoard = updateBoard cBoard rowIndex colIndex sCounter
+
+        -- gera próximos movimentos a partir de uma posição
+        nextFrom :: [Int] -> [[Int]]
+        nextFrom [r,c] = 
+            map (\m -> [r + head m, c + (m !! 1)]) posMov
+        nextFrom _ = []
+
+        -- grau de Warnsdorff: quantos movimentos válidos existem a partir dessa posição
+        onwardDegree :: [Int] -> Int
+        onwardDegree pos =
+            let ns = nextFrom pos
+            in length (filter (\p -> isMovementValid p chBoard w h) ns)
     in
-        if (sCounter == (w * h))
+        if sCounter == (w * h)
             then not (isStartReachable cPos sPos posMov)
         else
             let
-                nextMovements = map (\move -> [head cPos + head move, cPos !! 1 + move !! 1]) posMov
+                nextMovements = nextFrom cPos
                 validNextPositions = filter (\pos -> isMovementValid pos chBoard w h) nextMovements
-                tryThisWay nextPos = knightsTourProblem chBoard nextPos sPos (sCounter + 1) posMov
-            in any tryThisWay validNextPositions
+
+                -- ordena pelos que têm MENOS saídas depois (Warnsdorff)
+                orderedNextPositions =
+                    sortOn onwardDegree validNextPositions
+
+                tryThisWay nextPos =
+                    knightsTourProblem chBoard nextPos sPos (sCounter + 1) posMov
+            in
+                any tryThisWay orderedNextPositions
