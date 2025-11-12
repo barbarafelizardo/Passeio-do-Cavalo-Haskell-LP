@@ -59,4 +59,4 @@ knightsTourProblem cBoard cPos sPos sCounter posMov =
                 result =
                     any tryThisWay orderedNextPositions
             in
-                (result && trace (" " ++ show cPos) True)
+                (result && trace (show cPos) True)
