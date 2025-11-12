@@ -20,7 +20,7 @@ processInput (BoardInput rows cols startRow startCol) = do
         startPos = [startRow, startCol]
         stepCounter = 1
         result = knightsTourProblem chessboard startPos startPos stepCounter possibleMovements
-    putStrLn $ "Resultado: " ++ show result
+    putStrLn $ "Resultado: " ++ show result ++ "\n"
 
 
 

@@ -1,6 +1,7 @@
 module KnightsTour(isMovementValid, isStartReachable, knightsTourProblem) where
 import BoardOperations
 import Data.List (sortOn)
+import Debug.Trace
 
 
 -- vê se o movimento está nos limites do tabuleiro e se o valor da célula dele na matriz é 0
@@ -17,7 +18,7 @@ isStartReachable cPos sPos posMov =
 
 -- gera próximos movimentos a partir de uma posição
 nextFrom :: [Int] -> [[Int]] -> [[Int]]
-nextFrom [r,c] posMov = 
+nextFrom [r,c] posMov =
     map (\m -> [r + head m, c + (m !! 1)]) posMov
 nextFrom _ _ = []
 
@@ -40,7 +41,9 @@ knightsTourProblem cBoard cPos sPos sCounter posMov =
         h = length chBoard
     in
         if sCounter == (w * h)
-            then not (isStartReachable cPos sPos posMov)
+            then
+                let result = not (isStartReachable cPos sPos posMov)
+                in (result && trace ("Caminho válido encontrado: \n" ++ show cPos) True)
         else
             let
                 nextMovements = nextFrom cPos posMov
@@ -52,5 +55,8 @@ knightsTourProblem cBoard cPos sPos sCounter posMov =
 
                 tryThisWay nextPos =
                     knightsTourProblem chBoard nextPos sPos (sCounter + 1) posMov
+
+                result =
+                    any tryThisWay orderedNextPositions
             in
-                any tryThisWay orderedNextPositions
+                (result && trace (" " ++ show cPos) True)
